@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet"> 
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="price.html">About</a></li>
+            <li><a href="comming-soon.html">Demo</a></li>
+        </ul>
+    </nav>
+</head>
+<body >
+    <div class="signup-page">
+
+    <!-- Signup Form -->
+    <div class="terminal" id="signup-form">
+        <form class="signup-form" onsubmit="handleSignup(event)">
+            <label for="signup-username-input">Username:</label>
+            <input type="text" id="signup-username-input" required>
+
+            <label for="signup-password-input">Password:</label>
+            <input type="password" id="signup-password-input" required>
+
+            <button type="submit" class="button">Sign Up</button>
+        </form>
+    </div>
+
+    <!-- Login Form -->
+    <div class="terminal" id="login-form" style="display: none;">
+        <form class="login-form" onsubmit="handleLogin(event)">
+            <label for="login-username-input">Username:</label>
+            <input type="text" id="login-username-input" required>
+
+            <label for="login-password-input">Password:</label>
+            <input type="password" id="login-password-input" required>
+
+            <button type="submit" class="button">Log In</button>
+        </form>
+    </div>
+
+    <button id="signup-button" onclick="showSignup()">Sign Up</button>
+    <button id="login-button" onclick="showLogin()">Log In</button>
+
+    <script>
+    function showSignup() {
+        document.getElementById('signup-form').style.display = 'block';
+        document.getElementById('login-form').style.display = 'none';
+        document.getElementById('signup-button').style.display = 'none';
+        document.getElementById('login-button').style.display = 'block';
+    }
+
+    function showLogin() {
+        document.getElementById('signup-form').style.display = 'none';
+        document.getElementById('login-form').style.display = 'block';
+        document.getElementById('signup-button').style.display = 'block';
+        document.getElementById('login-button').style.display = 'none';
+    }
+    showSignup();
+    </script>
+
+    <!-- Include your JavaScript files -->
+    <script src="script.js"></script>
+    </div>
+
+    <footer>
+        <a href="index.html" class="footer-link">© 2024 Cipher</a>
+    </footer>
+</body>
+</html>
