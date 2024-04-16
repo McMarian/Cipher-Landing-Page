@@ -62,7 +62,7 @@ class User(UserMixin, db.Model):
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-@app.route('/')
+@app.route('/index')
 def home():
     return render_template('index.html')
 
