@@ -10,7 +10,7 @@ from flask_wtf import CSRFProtect
 import os
 from flask_migrate import Migrate
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', template_folder='templates')
 CORS(app)  
 csrf = CSRFProtect(app)
 login_manager = LoginManager()
