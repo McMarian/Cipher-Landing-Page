@@ -11,6 +11,7 @@ import os
 from flask_migrate import Migrate
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
+app.debug = False
 CORS(app)  
 csrf = CSRFProtect(app)
 login_manager = LoginManager()
@@ -62,7 +63,7 @@ class User(UserMixin, db.Model):
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-@app.route('/index')
+@app.route('/')
 def home():
     return render_template('index.html')
 
@@ -164,7 +165,6 @@ def signup():
             session['next'] = url_for('signup')
         return render_template('signup.html')
 
-# Remove these routes and the tokengetter function
 # @app.route('/login/google')
 # def login_google():
 #     callback=url_for('authorized', _external=True)
