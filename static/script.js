@@ -1,7 +1,43 @@
-document.querySelector(".account-button").addEventListener("click", function() {
-    var dropdown = document.querySelector(".account-dropdown");
-    dropdown.style.display = dropdown.style.display === "none" ? "block" : "none";
+
+// Define sendMessage function outside of DOMContentLoaded event listener
+function sendMessage() {
+    var userInput = document.getElementById('user-input').value;
+    if (userInput.trim() !== '') {
+        var chatBox = document.getElementById('chat-box');
+        var message = document.createElement('div');
+        message.textContent = 'You: ' + userInput;
+        chatBox.appendChild(message);
+        chatBox.scrollTop = chatBox.scrollHeight;
+        document.getElementById('user-input').value = '';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    var toggleChatButton = document.getElementById('toggle-chat');
+    var inputContainer = document.querySelector('.input-container');
+    var chatContainer = document.querySelector('.chat-container');
+
+    // Toggle display of input container and chat box when button is clicked
+    toggleChatButton.addEventListener('click', function () {
+        inputContainer.style.display = inputContainer.style.display === 'none' ? 'flex' : 'none';
+        chatContainer.style.display = chatContainer.style.display === 'none' ? 'block' : 'none';
+    });
+
+    // Send message when send button is clicked
+    var sendButton = document.getElementById('send-button');
+    sendButton.addEventListener('click', function () {
+        sendMessage();
+    });
+
+    // Send message when Enter key is pressed
+    document.getElementById('user-input').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
 });
+
+  
 
 document.querySelector(".signup-form").addEventListener("submit", function(event) {
     event.preventDefault();
@@ -66,6 +102,7 @@ function register(username, password) {
     })
     .then(response => response.json())
     .then(data => {
+        console.log(data);
         if (data.message === 'User created successfully') {
             window.location.href = data.redirect;
         } else {
@@ -74,6 +111,7 @@ function register(username, password) {
     })
     .catch(error => {
         console.error('Error:', error);
+        console.log('Response:', error.response);
         alert('An error occurred while registering. Please try again.');
     });
 }
@@ -238,4 +276,63 @@ function fetchComments(postId) {
             console.error('Error:', error);
             alert('An error occurred while fetching comments. Please try again.');
         });
+}
+
+document.getElementById('create-post-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    var content = this.elements['content'].value;
+    fetch('/posts', {
+        method: 'POST',
+        body: JSON.stringify({ content: content }),
+        headers: { 'Content-Type': 'application/json' }
+    }).then(function(response) {
+        if (response.ok) {
+            // Reload the page to show the new post
+            location.reload();
+        } else {
+            // Handle errors
+        }
+    });
+});
+
+var updatePostForms = document.getElementsByClassName('update-post-form');
+for (var i = 0; i < updatePostForms.length; i++) {
+    updatePostForms[i].addEventListener('submit', function(event) {
+        event.preventDefault();
+        var postId = this.dataset.postId;
+        var content = this.elements['content'].value;
+        fetch('/posts/' + postId, {
+            method: 'PUT',
+            body: JSON.stringify({ content: content }),
+            headers: { 'Content-Type': 'application/json' }
+        }).then(function(response) {
+            if (response.ok) {
+                // Reload the page to show the updated post
+                location.reload();
+            } else {
+                // Handle errors
+            }
+        });
+    });
+}
+
+var createCommentForms = document.getElementsByClassName('create-comment-form');
+for (var i = 0; i < createCommentForms.length; i++) {
+    createCommentForms[i].addEventListener('submit', function(event) {
+        event.preventDefault();
+        var postId = this.dataset.postId;
+        var content = this.elements['content'].value;
+        fetch('/posts/' + postId + '/comments', {
+            method: 'POST',
+            body: JSON.stringify({ content: content }),
+            headers: { 'Content-Type': 'application/json' }
+        }).then(function(response) {
+            if (response.ok) {
+                // Reload the page to show the new comment
+                location.reload();
+            } else {
+                // Handle errors
+            }
+        });
+    });
 }

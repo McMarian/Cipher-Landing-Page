@@ -11,14 +11,15 @@
         <ul>
             <li><a href="{{ url_for('home') }}">Home</a></li>
             <li><a href="{{ url_for('price') }}">Price</a></li>
-            <li><a href="{{ url_for('coming_soon') }}">Demo</a></li>
+            <a href="{{ url_for('posts') }}">Comunity</a>
+            <li><a href="{{ url_for('demo') }}">Demo</a></li>
         </ul>
     </nav>
+    {% include 'account_button.html' %}
 </head>    
 <body>
-    <div class="header">
-            C:\><span class="blink">_</span>
-        </div>
+    <p >You'll get a price when there is something to sell from our side:)</p>
     <footer>
-        <a href="{{ url_for('home') }}" class="footer-link">© 2024 Cipher</a>
+        <a href="{{ url_for('home') }}" class="footer-link">© 2024 Cipher</a>    
     </footer>      
+</body>

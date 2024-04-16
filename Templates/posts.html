@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>User Profile</title>
+    <title>Posts</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
@@ -11,17 +11,52 @@
     <nav>
         <ul>
             <li><a href="{{ url_for('home') }}">Home</a></li>
-            <li><a href="{{ url_for('price') }}">About</a></li>
-            <li><a href="{{ url_for('coming_soon') }}">Demo</a></li>
+            <li><a href="{{ url_for('price') }}">Price</a></li>
+            <a href="{{ url_for('posts') }}" class=>Comunity</a>
+            <li><a href="{{ url_for('demo') }}">Demo</a></li>
         </ul>
     </nav>
+    {% include 'account_button.html' %}
 </head>
 <body>
-    <div class ="signup-page">
-    <h1>Welcome, <span id="username"></span>!</h1>
-    <p>This is your profile page.</p>
-</div>
-    
-    <script src="script.js"></script>
+    <div class="posts-page, terminal">
+        <h1>Posts</h1>
+
+        <!-- Form for creating a new post -->
+        <form id="create-post-form">
+            <textarea name="content" placeholder="Write a new post..."></textarea>
+            <button type="submit">Post</button>
+        </form>
+
+        {% if posts %}
+            <ul>
+            {% for post in posts %}
+                <li>
+                    <h3>{{ post.content }}</h3>
+                    <!-- Form for updating a post -->
+                    <form class="update-post-form" data-post-id="{{ post.id }}">
+                        <textarea name="content">{{ post.content }}</textarea>
+                        <button type="submit">Update</button>
+                    </form>
+                    <!-- Form for creating a comment -->
+                    <form class="create-comment-form" data-post-id="{{ post.id }}">
+                        <textarea name="content" placeholder="Write a comment..."></textarea>
+                        <button type="submit">Comment</button>
+                    </form>
+                    <!-- Display comments -->
+                    <ul>
+                    {% for comment in post.comments %}
+                        <li>{{ comment.content }} - {{ comment.author.username }}</li>
+                    {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    <footer>
+        <a href="{{ url_for('home') }}" class="footer-link">© 2024 Cipher</a>
+     </footer>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

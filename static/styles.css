@@ -4,7 +4,7 @@ body {
     color: #00FF00;  
     font-family: 'VT323', monospace; 
     margin: 0;
-    overflow: hidden; 
+    overflow: auto; 
     font-size: 300%;
     display: flex;
     flex-direction: column;
@@ -20,13 +20,89 @@ body {
     border-radius: 5px;
 }
 
-.header {
-    font-size: 32px; 
-    margin-bottom: 15px;
-    text-align:left;
-    margin-left: 90px;
-    margin-top: 100px;
+.circle-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #8f8f8f;
+    border: none;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    color: #000;
+    font-weight: bold;
+    text-align: center;
+    line-height: 50px;
+    font-family: 'VT323', monospace;
 }
+
+.chat-container {
+    position: fixed;
+    bottom: 20%; /* Adjusted to make the container smaller */
+    top: 20%; /* Added to make the container smaller */
+    left: 10%; /* Adjusted to make the container smaller */
+    right: 10%; /* Added to make the container smaller */
+    background-color: #000;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.chat-box {
+    max-height: 80%; /* Adjusted to take into account the smaller chat container */
+    overflow-y: scroll;
+    border: none;
+    padding: 10px;
+    margin-bottom: 10px;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: 'VT323', monospace;
+    color: #00FF00;
+}
+
+.input-container {
+    position: fixed;
+    bottom: 25px;
+    left: 5%;
+    right: 15%;
+    background-color: #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    border: 2px solid #8f8f8f;
+    height: 70px;
+}
+
+.input-container textarea {
+    flex-grow: 1;
+    font: 80% 'VT323', monospace;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    overflow: auto;
+    color: #00FF00;
+    outline: none;
+    resize: none;
+    margin-right: 10px;
+    background-color: #000;
+    height: 55px;
+}
+
+.input-container button {
+    font: 80% 'VT323', monospace;
+    background: none;
+    color: #00FF00;
+    border: none;
+    cursor: pointer;
+}
+  
 
 .content p {
     margin-bottom: 20px;
@@ -72,6 +148,7 @@ nav a {
     animation: blink 1s linear infinite;
 }
 footer {
+    margin-top: auto;
     text-align: center;
     background-color: #000000;
     padding: 20px;
@@ -81,28 +158,34 @@ footer {
 
 .account-section {
     position: fixed;
-    top: 0;
-    right: 0;
-    display: inline-block;
+    top: 20px; /* adjust as needed */
+    right: 20px; /* adjust as needed */
 }
 
 .account-button {
-    border: 15px;
+    border: none;
     cursor: pointer;
     border-radius: 50%;
-    padding: 25px;
-    margin-right: 50px;
-    margin-top: 50px;
+    width: 50px; /* adjust as needed */
+    height: 50px; /* adjust as needed */
+    line-height: 50px; /* adjust as needed */
+    text-align: center;
+    background-color: #00FF00; /* adjust as needed */
 }
 
 .account-dropdown {
     display: none;
     position: absolute;
+    top: 100%; /* positions the dropdown right under the button */
     right: 0;
     background-color: #00FF00;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(49, 44, 193, 0.803);
     z-index: 1;
+}
+
+.account-section:hover .account-dropdown {
+    display: block;
 }
 
 .account-dropdown a {
@@ -115,7 +198,6 @@ footer {
 .account-dropdown a:hover {
     background-color: #f1f1f1;
 }
-
 .signup-page {
     flex-grow: 1;
     display: flex;
@@ -128,27 +210,30 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px; 
+    gap: 0.5px; 
 }
 
 .signup-form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px; 
+    gap: 0.5px; 
 }
 #login-form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px; 
+    gap: 0.5px; 
 }
 
 .login-form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px; 
+    gap: 0.5px; 
+}
+.flashes li {
+    color: red;
 }
 .footer-link {
     color: #00FF00;
