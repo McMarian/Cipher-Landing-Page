@@ -52,7 +52,7 @@ class Comment(db.Model):
 class User(UserMixin, db.Model):
     id = Column(Integer, primary_key=True)
     username = Column(String(100), unique=True, nullable=False)
-    password = Column(String(100), nullable=False)
+    password = Column(String(200), nullable=False)
     bio = Column(String(500), nullable=True)
     profile_picture = Column(String(500), nullable=True)
 
