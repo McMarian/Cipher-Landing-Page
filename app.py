@@ -10,7 +10,7 @@ from flask_wtf import CSRFProtect
 import os
 from flask_migrate import Migrate
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', template_folder='templates')
 CORS(app)  
 csrf = CSRFProtect(app)
 login_manager = LoginManager()
@@ -62,7 +62,7 @@ class User(UserMixin, db.Model):
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-@app.route('/')
+@app.route('/index')
 def home():
     return render_template('index.html')
 
