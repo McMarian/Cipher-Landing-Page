@@ -8,7 +8,7 @@ from sqlalchemy.orm import relationship
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required
 from flask_wtf import CSRFProtect
 import os
-from flask_migrate import Migrate
+from flask_migrate import Migrate, upgrade
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
 app.debug = False
@@ -22,6 +22,8 @@ app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 db = SQLAlchemy(app) 
 migrate = Migrate(app, db)
 
+with app.app_context():
+    upgrade()
 class Post(db.Model):
     id = Column(Integer, primary_key=True)
     content = Column(String(500), nullable=False)
@@ -52,7 +54,7 @@ class Comment(db.Model):
 class User(UserMixin, db.Model):
     id = Column(Integer, primary_key=True)
     username = Column(String(100), unique=True, nullable=False)
-    password = Column(String(200), nullable=False)
+    password = Column(String(300), nullable=False)
     bio = Column(String(500), nullable=True)
     profile_picture = Column(String(500), nullable=True)
 
